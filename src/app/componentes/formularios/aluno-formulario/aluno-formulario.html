@@ -1,0 +1,54 @@
+<!-- Botão para abrir a Modal -->
+<button type="button" class="btn btn-success btn-novo-cadastro" data-bs-toggle="modal" data-bs-target="#modalCadastro">
+    Novo Cadastro
+</button>
+<!-- Modal do Formulário -->
+<div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Cabeçalho -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCadastroLabel">Cadastrar Aluno</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <!-- Corpo — Formulário -->
+            <div class="modal-body">
+                <form id="formAluno" [formGroup]="formularioAluno()">
+                    <div class="mb-3">
+                        <input formControlName="codigo" type="hidden">
+                    </div>
+                    <div class="mb-3">
+                        <input formControlName="nome" type="text" name="nome" placeholder="Digite o nome"
+                            class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <input formControlName="nota1" type="number" step="0.01" min="0" max="10" name="nota1"
+                            placeholder="Nota 1" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <input formControlName="nota2" type="number" step="0.01" min="0" max="10" name="nota2"
+                            placeholder="Nota 2" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <!-- Rodapé — Botões -->
+            <div class="modal-footer">
+                @if(visibilidadeBotoes()) {
+                <button type="submit" form="formAluno" class="btn btn-success" (click)="aoCadastrar.emit()">
+                    Cadastrar
+                </button>
+                } @else {
+                <button type="button" class="btn btn-primary" id="btnAtualizar" (click)="aoAlterar.emit()">
+                    Atualizar
+                </button>
+                <button type="button" class="btn btn-danger" id="btnRemover" (click)="aoRemover.emit()">
+                    Remover
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="aoCancelar.emit()">
+                    Cancelar
+                </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

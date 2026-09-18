@@ -1,0 +1,13 @@
+<app-aluno-formulario
+  [formularioAluno]="formulario"
+  [visibilidadeBotoes]="btnCadastrar()"
+  (aoCadastrar)="cadastrar()"
+  (aoAlterar)="atualizar()"
+  (aoRemover)="remover()"
+  (aoCancelar)="cancelar()">
+</app-aluno-formulario>
+
+<app-aluno-tabela
+  [alunos]="vetorAlunos()"
+  (aoSelecionar)="selecionarAluno($event)">
+</app-aluno-tabela>

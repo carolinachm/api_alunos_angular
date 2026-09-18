@@ -1,0 +1,103 @@
+<!-- Botão para abrir a Modal -->
+<button type="button" class="btn btn-success btn-novo-cadastro" data-bs-toggle="modal" data-bs-target="#modalCadastro">
+    Novo Cadastro
+</button>
+
+<!-- Tabela de Alunos — Fora da Modal, visível na página -->
+<div class="mt-4">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Média</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaAlunos">
+            @for(aluno of vetorAlunos(); track aluno.codigo) {
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.nota1 }}</td>
+                <td>{{ aluno.nota2 }}</td>
+                <td>{{ (aluno.nota1 + aluno.nota2) / 2 }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" type="button" (click)="selecionarAluno($index)"
+                        data-bs-toggle="modal" data-bs-target="#modalCadastro">
+                        Selecionar
+                    </button>
+                </td>
+            </tr>
+            } @empty {
+            <tr>
+                <td colspan="6" class="text-center text-muted py-3">
+                    Nenhum aluno cadastrado.
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Modal do Formulário -->
+<div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel" aria-hidden="true"
+    [formGroup]="formulario">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Cabeçalho -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCadastroLabel">Cadastrar Aluno</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+
+            <!-- Corpo — Formulário -->
+            <div class="modal-body">
+                <form id="formAluno">
+                    <div class="mb-3">
+                        <input formControlName="codigo" type="hidden">
+                    </div>
+                    <div class="mb-3">
+                        <input formControlName="nome" type="text" name="nome" placeholder="Digite o nome"
+                            class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <input formControlName="nota1" type="number" step="0.01" min="0" max="10" name="nota1"
+                            placeholder="Nota 1" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <input formControlName="nota2" type="number" step="0.01" min="0" max="10" name="nota2"
+                            placeholder="Nota 2" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Rodapé — Botões -->
+            <div class="modal-footer">
+
+                @if(btnCadastrar()){ <button type="submit" form="formAluno" class="btn btn-success" (click)="cadastrar()">
+                    Cadastrar
+                </button>
+                }@else{
+                 <button type="button" class="btn btn-primary" id="btnAtualizar" (click)="atualizar()">
+                    Atualizar
+                </button>
+                <button type="button" class="btn btn-danger" id="btnRemover" (click)="remover()">
+                    Remover
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="cancelar()">
+                    Cancelar
+                </button>
+                }
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

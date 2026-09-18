@@ -1,0 +1,38 @@
+<!-- Tabela de Alunos — Fora da Modal, visível na página -->
+<div class="mt-4">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Média</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaAlunos">
+            @for(aluno of alunos(); track aluno.codigo) {
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.nota1 }}</td>
+                <td>{{ aluno.nota2 }}</td>
+                <td>{{ (aluno.nota1 + aluno.nota2) / 2 }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" type="button" (click)="selecionarAluno($index)"
+                        data-bs-toggle="modal" data-bs-target="#modalCadastro">
+                        Selecionar
+                    </button>
+                </td>
+            </tr>
+            } @empty {
+            <tr>
+                <td colspan="6" class="text-center text-muted py-3">
+                    Nenhum aluno cadastrado.
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
